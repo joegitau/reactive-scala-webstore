@@ -1,7 +1,7 @@
 package models
 
 case class Image(
-                id: Option[Long],
-                productId: Option[Long],
-                url: String
+                var id: Option[Long],
+                var productId: Option[Long],
+                var url: String
                 )

@@ -15,18 +15,18 @@ GET       /product/details/:id        controllers.ProductController.details(id:L
 # Reviews CRUD
 GET       /review                     controllers.ReviewController.index
 GET       /review/add                 controllers.ReviewController.blank
-POST      /review/                    controllers.ReviewController.insert
+POST      /review/                    controllers.ReviewController.create
 POST      /review/:id                 controllers.ReviewController.update(id:Long)
-POST      /review:id/remove           controllers.ReviewController.remove(id:Long)
+POST      /review:id/remove           controllers.ReviewController.delete(id:Long)
 GET       /review/details/:id         controllers.ReviewController.details(id:Long)
 
 # Images CRUD
 GET       /image                      controllers.ImageController.index
 GET       /image/add                  controllers.ImageController.blank
-POST      /image/                     controllers.ImageController.insert
+POST      /image/                     controllers.ImageController.create
 POST      /image/:id                  controllers.ImageController.update(id:Long)
-POST      /image:id/remove            controllers.ImageController.remove(id:Long)
+POST      /image:id/remove            controllers.ImageController.delete(id:Long)
 GET       /image/details/:id          controllers.ImageController.details(id:Long)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET       /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
