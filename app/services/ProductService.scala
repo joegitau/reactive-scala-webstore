@@ -6,7 +6,6 @@ trait ProductService extends CrudService[Product] {
   def findAllProducts(): Seq[(String,String)]
 }
 
-@Singleton
 class ProductServiceImpl extends ProductService {
   def create(product: Product): Long = {
     // increment id

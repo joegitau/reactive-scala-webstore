@@ -2,18 +2,46 @@ package services
 
 import models.Image
 
-trait ImageService extends CrudService[Image] {
+import javax.inject.Singleton
 
-}
+trait ImageService extends CrudService[Image] {}
 
+@Singleton
 class ImageServiceImp extends ImageService {
-  override def create(a: Image): Long = ???
+  def create(image: Image): Long = {
+    val id = idCounter.incrementAndGet()
+    image.id = Some(id)
 
-  override def findById(id: Long): Option[Image] = ???
+    inMemoryDB.put(id, image)
+    id
+  }
 
-  override def findAll(): Option[List[Image]] = ???
+  def findById(id: Long): Option[Image] = {
+    inMemoryDB.get(id)
+  }
 
-  override def update(id: Long, a: Image): Boolean = ???
+  def findAll(): Option[List[Image]] = {
+    if (inMemoryDB.values.toList == null || inMemoryDB.values.toList.isEmpty) None
+    else Some(inMemoryDB.values.toList)
+  }
 
-  override def delete(id: Long): Boolean = ???
+  def update(id: Long, image: Image): Boolean = {
+    validateId(id)
+    image.id = Some(id)
+
+    inMemoryDB.put(id, image)
+    true
+  }
+
+  def delete(id: Long): Boolean = {
+    validateId(id)
+
+    inMemoryDB.remove(id)
+    true
+  }
+
+  private def validateId(id: Long): Unit = {
+    val entry = inMemoryDB.get(id)
+    if (entry == null) throw new RuntimeException(s"Could not find image with given $id!")
+  }
 }

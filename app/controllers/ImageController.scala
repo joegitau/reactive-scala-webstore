@@ -52,7 +52,7 @@ class ImageController @Inject()(messagesApi: MessagesApi,
     // Logger.info("insert called.")
 
     imageForm
-      .bindFromRequest
+      .bindFromRequest()
       .fold(
         errorForm => {
           BadRequest(views.html.images.image_details(None, errorForm, productService.findAllProducts()))
@@ -78,14 +78,14 @@ class ImageController @Inject()(messagesApi: MessagesApi,
     // Logger.info("updated called. id: " + id)
 
     imageForm
-      .bindFromRequest
+      .bindFromRequest()
       .fold(
         errorForm => {
           Ok(views.html.images.image_details(Some(id), errorForm, null))
             .flashing("error" -> "Fix the errors!")
         },
         image => {
-          imageService.update(id,image)
+          imageService.update(id, image)
 
           Redirect(routes.ImageController.index())
             .flashing("success" -> Messages("success.update", image.id))

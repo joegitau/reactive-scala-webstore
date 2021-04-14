@@ -1,7 +1,7 @@
 package models
 
 case class Review(
-                   id: Option[Long],
+                   var id: Option[Long],
                    productId: Option[Long],
                    author: String,
                    comment: String
