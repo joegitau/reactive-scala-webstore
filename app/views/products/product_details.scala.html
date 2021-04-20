@@ -1,0 +1,25 @@
+@import views.html.helper.CSRF
+@(id: Option[Long], productForm: Form[Product])(implicit flash: Flash, request: RequestHeader, messagesProvider: MessagesProvider)
+
+@main(s"Product: ${productForm("name").value.getOrElse("")} ") {
+	@if(productForm.hasErrors) {
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	}
+
+	@helper.form(
+		action = if (id.isDefined) routes.ProductController.update(id.get) else routes.ProductController.create()
+	) {
+		@CSRF.formField  @* <- takes a RequestHeader *@
+		@helper.inputText(productForm("name"), Symbol("_label") -> "Product Name") @* <- takes a MessagesProvider *@
+		@helper.inputText(productForm("details"), Symbol("_label") -> "Product Details") @* <- takes a MessagesProvider *@
+		@helper.inputText(productForm("price"), Symbol("_label") -> "Product Price") @* <- takes a MessagesProvider *@
+		<div class="form-actions">
+			<button type="button" class="btn btn-primary">
+				@if(id.isDefined) { Update Product } else { Create Product }
+			</button>
+		</div>
+	}
+}

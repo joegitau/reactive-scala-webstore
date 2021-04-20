@@ -7,13 +7,14 @@
 		<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
 		<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
 		<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+		<script src="https://kit.fontawesome.com/e758fbd869.js" crossorigin="anonymous"></script>
 
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="@routes.HomeController.index()">Football Stars</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<a class="navbar-brand" href="@routes.HomeController.index()">Reactive WebStore</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -25,9 +26,7 @@
 		</nav>
 		<div class="container">
 			<div class="row">
-			<div class="col-md-12 mt-2">
 				@content
-			</div>
 			</div>
 		</div>
 

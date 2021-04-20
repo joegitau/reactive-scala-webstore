@@ -12,7 +12,6 @@ import javax.inject.{Inject, Singleton}
 
 @Singleton
 class ProductController @Inject() (val controllerComponents: ControllerComponents,
-                                   messagesApi: MessagesApi,
                                    productService: ProductService,
                                   ) extends BaseController with I18nSupport {
   // val logger: Logger = Logger(getClass)
@@ -27,12 +26,12 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
   )
 
   def index: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    val products = productService
+    val products: Seq[Product] = productService
       .findAll()
       .getOrElse(Seq())
 
     // Logger.debug(s"Products: $products")
-    Ok(views.html.products.product_index())
+    Ok(views.html.products.product_index(products))
   }
 
   def blank: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
@@ -45,10 +44,7 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
     val product = productService.findById(id).get
 
     // redirect to view + bind data with the form so that UI loads with all HTML inputs pre-filled with data
-    Ok(
-      views.html.products.product_details(Some(id)),
-      productForm.fill(product)
-    )
+    Ok( views.html.products.product_details(Some(id), productForm.fill(product)))
   }
 
   def create: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
@@ -59,7 +55,7 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
       .bindFromRequest()
       .fold(
         // binding failure, you retrieve the form containing errors:
-        form => BadRequest(views.html.products.product_details(None, form)),
+        errorForm => BadRequest(views.html.products.product_details(None, errorForm)),
         // binding success, you pass along actual value.
         product => {
           val id = productService.create(product)
@@ -77,9 +73,10 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
     productForm
       .bindFromRequest()
       .fold(
-        form => {
-          Ok(views.html.products.product_details(Some(id), form))
-            .flashing("error" -> "Fix the errors!")
+        errorForm => {
+          Ok(
+            views.html.products.product_details(Some(id), errorForm)
+          ).flashing("error" -> "Fix the errors!")
         },
         product => {
           productService.update(id,product)
