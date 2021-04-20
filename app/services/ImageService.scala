@@ -7,7 +7,7 @@ import javax.inject.Singleton
 trait ImageService extends CrudService[Image] {}
 
 @Singleton
-class ImageServiceImp extends ImageService {
+class ImageServiceImpl extends ImageService {
   def create(image: Image): Long = {
     val id = idCounter.incrementAndGet()
     image.id = Some(id)
