@@ -10,11 +10,10 @@ import services.{ProductService, ReviewService}
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class ReviewController @Inject()(messagesApi: MessagesApi,
-                                 reviewService: ReviewService,
+class ReviewController @Inject()(reviewService: ReviewService,
                                  productService: ProductService,
                                  val controllerComponents: ControllerComponents
-                                ) extends BaseController with I18nSupport{
+                                ) extends BaseController with I18nSupport {
   val reviewForm: Form[Review] = Form(
     mapping(
       "id" -> optional(longNumber),

@@ -1,0 +1,5 @@
+@(id: Option[Long], imageForm: Form[Image], products: Seq[(String, String)])(implicit flash: Flash, request: RequestHeader, messagesProvider: MessagesProvider)
+
+@main(s"Image: ${imageForm("name").value.getOrElse("") }") {
+
+}

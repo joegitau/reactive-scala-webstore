@@ -4,7 +4,7 @@ import models.Product
 import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.i18n.{I18nSupport, Messages, MessagesApi}
+import play.api.i18n.{I18nSupport, Messages}
 import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents, Request}
 import services.ProductService
 

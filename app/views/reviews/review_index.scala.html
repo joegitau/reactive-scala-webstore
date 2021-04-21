@@ -1,0 +1,35 @@
+@(reviews: Seq[Review])(implicit flash: Flash, request: RequestHeader, messagesProvider: MessagesProvider)
+
+@main("Product Reviews") {
+	<div class="col-md-6 offset-md-6">
+		<a class="btn-success btn-medium" href="@routes.ReviewController.blank()"><i class="fas fa-plus"></i> Add Review</a>
+	</div>
+	<div class="col-md-8 offset-md-2">
+		@if(reviews.nonEmpty) {
+			<table class="table-striped">
+				<thead>
+					<tr>
+						<th>Product ID</th>
+						<th>Author</th>
+						<th>Comment</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(review <- reviews) {
+						<tr>
+							<td>@review.productId</td>
+							<td>@review.author</td>
+							<td>@review.comment</td>
+							<td>
+								<form method="post" action="@routes.ReviewController.delete(review.id.get)">
+									<button class="btn btn-danger btn-small"><i class="fas fa-trash"></i> Delete</button>
+								</form>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+	</div>
+}

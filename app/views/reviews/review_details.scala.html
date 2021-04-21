@@ -1,0 +1,5 @@
+@(id: Option[Long], reviewForm: Form[Review], products: Seq[(String, String)])(implicit flash: Flash, request: RequestHeader, messagesProvider: MessagesProvider)
+
+@main(s"Review: ${reviewForm("name").value.getOrElse("") }") {
+
+}

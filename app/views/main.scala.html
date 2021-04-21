@@ -2,7 +2,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< HEAD
 	<head>
 		<title>@title</title>
 		<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
@@ -11,16 +10,16 @@
 		<script src="https://kit.fontawesome.com/e758fbd869.js" crossorigin="anonymous"></script>
 
 	</head>
-	<body>
+	<body class="bg-gray-100">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="@routes.HomeController.index()">Reactive WebStore</a>
+				<a class="navbar-brand" href="@routes.ProductController.index()">Reactive WebStore</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 					<div class="navbar-nav">
-						<a class="nav-link active" aria-current="page" href="@routes.HomeController.index()">Home</a>
+						<a class="nav-link active" aria-current="page" href="@routes.ProductController.index()">Home</a>
 					</div>
 				</div>
 			</div>
@@ -30,53 +29,6 @@
 				@content
 			</div>
 		</div>
-
 	<script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
 	</body>
-=======
-<head>
-	<title>@title</title>
-	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/bootstrap.min.css")">
-	<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-	<link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-</head>
-<body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="@routes.HomeController.index()">Reactive Webstore</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <a class="nav-link active" aria-current="page" href="@routes.HomeController.index()">Home</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 offset-md-6">
-        @alert(alertType: String) = {
-          @flash.get(alertType).map { message =>
-          <div class="alert alert-@alertType">
-            <button type="button" class="close" datadismiss="alert">&times;</button>
-            @message
-          </div>
-          }
-        }
-        @alert("error")
-        @alert("success")
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 mt-2">
-        @content
-      </div>
-    </div>
-  </div>
-  
-  <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
-</body>
->>>>>>> 2e31633a5eacf1aac2b09a336491814b9b764051
 </html>

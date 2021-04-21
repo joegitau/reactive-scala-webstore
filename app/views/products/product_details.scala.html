@@ -17,7 +17,7 @@
 		@helper.inputText(productForm("details"), Symbol("_label") -> "Product Details") @* <- takes a MessagesProvider *@
 		@helper.inputText(productForm("price"), Symbol("_label") -> "Product Price") @* <- takes a MessagesProvider *@
 		<div class="form-actions">
-			<button type="button" class="btn btn-primary">
+			<button type="submit" class="btn btn-primary">
 				@if(id.isDefined) { Update Product } else { Create Product }
 			</button>
 		</div>

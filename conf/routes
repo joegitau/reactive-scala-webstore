@@ -4,7 +4,6 @@
 # ~~~~
 
 # Products CRUD
-GET       /                           controllers.HomeController.index()
 GET       /product                    controllers.ProductController.index
 GET       /product/add                controllers.ProductController.blank
 POST      /product/                   controllers.ProductController.create
