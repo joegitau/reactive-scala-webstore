@@ -4,28 +4,28 @@
 # ~~~~
 
 # Products CRUD
-GET       /product                    controllers.ProductController.index
-GET       /product/add                controllers.ProductController.blank
-POST      /product/                   controllers.ProductController.create
-POST      /product/:id                controllers.ProductController.update(id:Long)
-POST      /product:id/remove          controllers.ProductController.delete(id:Long)
-GET       /product/details/:id        controllers.ProductController.details(id:Long)
+GET       /products                    controllers.ProductController.index
+GET       /products/add                controllers.ProductController.blank
+POST      /products/                   controllers.ProductController.create
+POST      /products/:id                controllers.ProductController.update(id:Long)
+POST      /products:id/remove          controllers.ProductController.delete(id:Long)
+GET       /products/details/:id        controllers.ProductController.details(id:Long)
 
 # Reviews CRUD
-GET       /review                     controllers.ReviewController.index
-GET       /review/add                 controllers.ReviewController.blank
-POST      /review/                    controllers.ReviewController.create
-POST      /review/:id                 controllers.ReviewController.update(id:Long)
-POST      /review:id/remove           controllers.ReviewController.delete(id:Long)
-GET       /review/details/:id         controllers.ReviewController.details(id:Long)
+GET       /reviews                     controllers.ReviewController.index
+GET       /reviews/add                 controllers.ReviewController.blank
+POST      /reviews/                    controllers.ReviewController.create
+POST      /reviews/:id                 controllers.ReviewController.update(id:Long)
+POST      /reviews:id/remove           controllers.ReviewController.delete(id:Long)
+GET       /reviews/details/:id         controllers.ReviewController.details(id:Long)
 
 # Images CRUD
-GET       /image                      controllers.ImageController.index
-GET       /image/add                  controllers.ImageController.blank
-POST      /image/                     controllers.ImageController.create
-POST      /image/:id                  controllers.ImageController.update(id:Long)
-POST      /image:id/remove            controllers.ImageController.delete(id:Long)
-GET       /image/details/:id          controllers.ImageController.details(id:Long)
+GET       /images                      controllers.ImageController.index
+GET       /images/add                  controllers.ImageController.blank
+POST      /images/                     controllers.ImageController.create
+POST      /images/:id                  controllers.ImageController.update(id:Long)
+POST      /images:id/remove            controllers.ImageController.delete(id:Long)
+GET       /images/details/:id          controllers.ImageController.details(id:Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET       /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

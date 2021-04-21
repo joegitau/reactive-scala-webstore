@@ -1,5 +1,35 @@
 @(images: Seq[Image])(implicit flash: Flash, request: RequestHeader, messagesProvider: MessagesProvider)
 
 @main("Product Images") {
-
+	<div class="row my-4">
+		<div class="col-md-8 offset-md-2 mb-md-0 mb-4">
+			<div class="card h-100">
+				<div class="card-header pb-0 p-3">
+					<h6 class="mb-0">Images</h6>
+				</div>
+				@if(images.nonEmpty) {
+					<div class="card-body p-3">
+						<ul class="list-group">
+						@for(image <- images) {
+							<li class="list-group-item border-0 d-flex align-items-center px-0 mb-2">
+								<div class="avatar me-3">
+									<img src="" alt="kal" class="border-radius-lg shadow">
+								</div>
+								<div class="d-flex align-items-start flex-column justify-content-center">
+									<h6 class="mb-0 text-sm">@image.productId</h6>
+									<p class="mb-0 text-xs">@image.url</p>
+								</div>
+								<a class="btn btn-link pe-3 ps-0 mb-0 ms-auto" href="javascript:;">
+									<form action="@routes.ImageController.delete(image.id.get)">
+										<button class="btn btn-danger btn-small"><i class="fas fa-trash"></i> Delete</button>
+									</form>
+								</a>
+							</li>
+						}
+						</ul>
+					</div>
+				}
+			</div>
+		</div>
+	</div>
 }
