@@ -1,5 +1,49 @@
 @(id: Option[Long], reviewForm: Form[Review], products: Seq[(String, String)])(implicit flash: Flash, request: RequestHeader, messagesProvider: MessagesProvider)
 
-@main(s"Review: ${reviewForm("name").value.getOrElse("") }") {
-
+@main(s"Image: ${reviewForm("name").value.getOrElse("") }") {
+	<div class="row my-4">
+		<div class="col-md-12">
+			<div class="mb-4 w-25">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="">Home</a></li>
+						<li class="breadcrumb-item active" aria-current="page">All Reviews</li>
+					</ol>
+				</nav>
+				<h3>Reviews</h3>
+			</div>
+		</div>
+		<div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+			<section>
+				<div class="container py-4">
+					<div class="row">
+						<div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+							<h3 class="text-center">Add a Review</h3>
+							<form role="form" id="contact-form" method="post" autocomplete="off">
+								<div class="card-body">
+								@helper.form(
+									action = if(id.isDefined) routes.ReviewController.update(id.get) else routes.ReviewController.create()
+								) {
+									@helper.select(
+										field = reviewForm("productId"),
+										options = products,
+										Symbol("_label") -> "Product Name",
+										Symbol("_default") -> reviewForm("productId").value.getOrElse("Select product name")
+									)
+									@helper.inputText(reviewForm("author"), Symbol("_label") -> "Author")
+									@helper.inputText(reviewForm("comment"), Symbol("_label") -> "Comment")
+									<div class="form-actions">
+										<button type="submit" class="btn btn-primary">
+										@if(id.isDefined) { Update Review } else { Add Review }
+										</button>
+									</div>
+								}
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
 }

@@ -1,5 +1,59 @@
+@import views.html.helper.options
 @(id: Option[Long], imageForm: Form[Image], products: Seq[(String, String)])(implicit flash: Flash, request: RequestHeader, messagesProvider: MessagesProvider)
 
 @main(s"Image: ${imageForm("name").value.getOrElse("") }") {
+	<div class="row my-4">
+		<div class="col-md-12">
+			<div class="mb-4 w-25">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="">Home</a></li>
+						<li class="breadcrumb-item active" aria-current="page">Image Details</li>
+					</ol>
+				</nav>
+				<h3>Images</h3>
+			</div>
+		</div>
+		<div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+			<section>
+				<div class="container py-4">
+					<div class="row">
+						<div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+							<h3 class="text-center">Add an Image</h3>
+							<form role="form" id="contact-form" method="post" autocomplete="off">
+								<div class="card-body">
+									@helper.form(
+										action = if(id.isDefined) routes.ImageController.update(id.get) else routes.ImageController.create()
+									) {
+										@helper.select(
+											field = imageForm("productId"),
+											options = products,
+											Symbol("_label") -> "Product Name",
+											Symbol("_default") -> imageForm("productId").value.getOrElse("Select product name")
+										)
+										@helper.inputText(
+											imageForm("url"),
+											Symbol("_label") -> "Image URL",
+											Symbol("_placeholder") -> "/assets/images/default_product.png",
+											Symbol("onChange") -> "javascript:loadImage();"
+										)
 
+										<div class="avatar me-3">
+											<img src="@imageForm("url").value" alt="" id="imgProduct" class="border-radius-lg shadow">
+										</div>
+
+										<div class="form-actions">
+											<button type="submit" class="btn btn-primary">
+												@if(id.isDefined) { Update Image } else { Add Image }
+											</button>
+										</div>
+									}
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
 }
