@@ -1,0 +1,16 @@
+@import akka.util.Helpers.Requiring
+@(elements: helper.FieldElements)
+
+
+	<div class="col-md-6 @if(elements.hasErrors) {is-invalid}">
+		<label for="@elements.id">@elements.label</label>
+		<div class="input-group mb-2">
+			@* @elements.input*@
+			<input type="text" id="@elements.id" name="@elements.name" class="form-control" value="@elements.field.value">
+		</div>
+		@* <div class="invalid-feedback">
+			<span @if(elements.hasErrors)>@elements.errors.mkString(". ")</span>
+			<span @if(elements.infos.nonEmpty)>@elements.infos.mkString(". ")</span>
+		</div> *@
+	</div>
+

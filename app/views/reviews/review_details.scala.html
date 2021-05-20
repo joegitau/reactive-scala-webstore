@@ -1,3 +1,4 @@
+@import shared.BaseHelpers.customInputField
 @(id: Option[Long], reviewForm: Form[Review], products: Seq[(String, String)])(implicit flash: Flash, request: RequestHeader, messagesProvider: MessagesProvider)
 
 @main(s"Image: ${reviewForm("name").value.getOrElse("") }") {
@@ -16,30 +17,48 @@
 		<div class="col-lg-8 col-md-6 mb-md-0 mb-4">
 			<section>
 				<div class="container py-4">
+					@if(reviewForm.hasErrors) {
+						<div class="row">
+							<div class="col-md-4 offset-4">
+								<div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+									You should check in on some of those fields below.
+									<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							</div>
+						</div>
+					}
 					<div class="row">
-						<div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
-							<h3 class="text-center">Add a Review</h3>
-							<form role="form" id="contact-form" method="post" autocomplete="off">
-								<div class="card-body">
-								@helper.form(
-									action = if(id.isDefined) routes.ReviewController.update(id.get) else routes.ReviewController.create()
-								) {
-									@helper.select(
-										field = reviewForm("productId"),
-										options = products,
-										Symbol("_label") -> "Product Name",
-										Symbol("_default") -> reviewForm("productId").value.getOrElse("Select product name")
-									)
+						<div class="col-md-8 mx-auto d-flex justify-content-center flex-column">
+							<h3 class="text-left">Add a Review</h3>
+							<div class="card-body">
+							@helper.form(
+								action = if(id.isDefined) routes.ReviewController.update(id.get) else routes.ReviewController.create()
+							) {
+								<div class="row">
+									<div class="col-md-12">
+										@helper.select(
+											field = reviewForm("productId"),
+											options = products,
+											Symbol("_label") -> "Product Name",
+											Symbol("_default") -> reviewForm("productId").value.getOrElse("Select product name")
+										)
+									</div>
+								</div>
+								<div class="row">
 									@helper.inputText(reviewForm("author"), Symbol("_label") -> "Author")
 									@helper.inputText(reviewForm("comment"), Symbol("_label") -> "Comment")
-									<div class="form-actions">
-										<button type="submit" class="btn btn-primary">
-										@if(id.isDefined) { Update Review } else { Add Review }
-										</button>
-									</div>
-								}
 								</div>
-							</form>
+								<div class="row mt-2">
+									<div class="col-md-12">
+										<div class="form-actions">
+											<button type="submit" class="btn btn-primary">
+											@if(id.isDefined) { Update Review } else { Add Review }
+											</button>
+										</div>
+									</div>
+								</div>
+							}
+							</div>
 						</div>
 					</div>
 				</div>
