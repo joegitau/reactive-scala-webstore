@@ -1,7 +1,6 @@
 package models
 
-case class Product(
-                    var id: Option[Long],
+case class Product(var id: Option[Long],
                     name: String,
                     details: String,
                     price: BigDecimal

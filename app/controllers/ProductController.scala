@@ -11,10 +11,10 @@ import services.ProductService
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class ProductController @Inject() (val controllerComponents: ControllerComponents,
-                                   productService: ProductService,
-                                  ) extends BaseController with I18nSupport {
-  // val logger: Logger = Logger(getClass)
+class  ProductController @Inject() (val controllerComponents: ControllerComponents,
+                                    productService: ProductService,
+                                    ) extends BaseController with I18nSupport {
+  val logger: Logger = Logger(getClass)
 
   val productForm: Form[Product] = Form(
     mapping(
@@ -30,7 +30,7 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
       .findAll()
       .getOrElse(Seq())
 
-    // Logger.debug(s"Products: $products")
+    logger.debug(s"Products: $products")
     Ok(views.html.products.product_index(products))
   }
 
@@ -39,7 +39,7 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
   }
 
   def details(id: Long): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    // Logger.debug(s"Product Id: $id")
+    logger.debug(s"Product Id: $id")
 
     val product = productService.findById(id).get
 
@@ -48,7 +48,7 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
   }
 
   def create: Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    // Logger.debug("create method initialised...")
+    logger.debug("create method initialised...")
 
     // fold takes two arguments (functions), Error & Ok
     productForm
@@ -68,7 +68,7 @@ class ProductController @Inject() (val controllerComponents: ControllerComponent
 
 
   def update(id: Long): Action[AnyContent] = Action { implicit request: Request[AnyContent] =>
-    // Logger.info(s"Updating product with id: $id")
+    logger.debug(s"Updating product with id: $id")
 
     productForm
       .bindFromRequest()
