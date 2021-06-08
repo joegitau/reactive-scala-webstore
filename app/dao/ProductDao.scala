@@ -13,14 +13,14 @@ trait ProductDaoTrait extends BaseDao[Product] {
   def findAll: Future[Seq[Product]]
   def findById(id: Long): Future[Option[Product]]
   def create(p: Product): Future[Unit]
-  def update(p2: Product): Future[Int]
+  def update(newProd: Product): Future[Int]
   def delete(id: Long): Future[Int]
 }
 
 class ProductDao @Inject() (protected val dbConfigProvider: DatabaseConfigProvider) extends HasDatabaseConfigProvider[JdbcProfile] with ProductDaoTrait {
   import profile.api._
 
-  class ProductTable(tag: Tag) extends Table[Product](tag, "PRODUCTS") {
+  class ProductTable(tag: Tag) extends Table[Product](tag, "Products") {
     def id: Rep[Option[Long]] = column[Option[Long]]("ID", O.PrimaryKey, O.AutoInc)
     def name: Rep[String] = column[String]("NAME")
     def details: Rep[String] = column[String]("DETAILS")
@@ -30,9 +30,10 @@ class ProductDao @Inject() (protected val dbConfigProvider: DatabaseConfigProvid
     def * : ProvenShape[Product] = (id, name, details, price) <> (Product.tupled, Product.unapply)
   }
 
-  override def toTable = TableQuery[ProductTable]
+  // TableQuery value represents the actual database table
+  override def toTable: TableQuery[ProductTable] = TableQuery[ProductTable]
 
-  private val Products = toTable
+  private val Products: TableQuery[ProductTable] = toTable
 
   override def findAll: Future[Seq[Product]] =
     db.run(Products.result)
@@ -43,10 +44,10 @@ class ProductDao @Inject() (protected val dbConfigProvider: DatabaseConfigProvid
   override def create(p: Product): Future[Unit] =
     db.run(Products += p).map { _ => () }
 
-  override def update(p2: Product): Future[Int] = {
+  override def update(newProd: Product): Future[Int] = {
     db.run(
-      Products.filter(_.id === p2.id)
-        .map(p => (p.name, p.details, p.price)) .update((p2.name, p2.details, p2.price))
+      Products.filter(_.id === newProd.id)
+        .map(p => (p.name, p.details, p.price)) .update((newProd.name, newProd.details, newProd.price))
     )
   }
 
